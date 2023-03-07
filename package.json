@@ -1,0 +1,29 @@
+{
+  "name": "potterflix",
+  "version": "1.0.0",
+  "description": "Potterflix is a clone coding project similar to YouTube UI, which archives videos about Harry Potter's best scenes and specific character stories.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brother1-4752/potterflix.git"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "author": "Nemo<guddlf4752@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brother1-4752/potterflix/issues"
+  },
+  "homepage": "https://github.com/brother1-4752/potterflix#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "@babel/node": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "nodemon": "^2.0.7"
+  }
+}
