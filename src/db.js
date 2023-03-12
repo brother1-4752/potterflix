@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+mongoose.set("strictQuery", true);
 console.log(process.env.DB_URL);
 
 mongoose.connect(process.env.DB_URL, {
