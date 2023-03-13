@@ -37,7 +37,9 @@
     "node-fetch": "^2.6.1",
     "webpack": "^5.33.2",
     "pug": "^3.0.2",
-    "regenerator-runtime": "^0.13.7",
+    "regenerator-runtime": "^0.13.7"
+  },
+  "devDependencies": {
     "@babel/cli": "^7.13.16",
     "@babel/core": "^7.13.16",
     "@babel/node": "^7.13.10",
@@ -51,6 +53,5 @@
     "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "webpack-cli": "^4.6.0"
-  },
-  "devDependencies": {}
+  }
 }
