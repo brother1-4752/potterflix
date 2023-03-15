@@ -42,7 +42,7 @@ block content
                     li.video__comment(data-id=comment._id)
                         i.fas.fa-comment
                         span=comment.text
-                        if String(video.owner._id) === String(loggedInUser._id)
+                        if String(comment.owner._id) === String(loggedInUser._id)
                             span.video__delete ❌
 block scripts
     script(src="/static/js/videoPlayer.js")

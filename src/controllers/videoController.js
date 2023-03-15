@@ -6,8 +6,7 @@ export const home = async (req, res) => {
   const videos = await Video.find({})
     .sort({ createdAt: "asc" })
     .populate("owner");
-  console.log("테스트");
-  console.log(req.session.user);
+
   return res.render("home", { pageTitle: "Home", videos });
 };
 export const watch = async (req, res) => {
@@ -40,12 +39,9 @@ export const postEdit = async (req, res) => {
   const { id } = req.params;
   const { title, description, hashtags } = req.body;
   const video = await Video.findById({ _id: id });
-  console.log(video);
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
-  console.log(`video오너는 ${video.owner}`);
-  console.log(`_id는 ${_id}`);
 
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
@@ -155,30 +151,29 @@ export const createComment = async (req, res) => {
   userData.save();
   return res.status(201).json({ newCommentId: comment._id });
 };
+
 export const deleteComment = async (req, res) => {
-  const {
-    session: {
-      user: { _id },
-    },
-    params: { id },
-  } = req;
-  const comment = await Comment.findById(id);
+  const { user } = req.session;
+  const { id: commentId } = req.params;
+  const { videoId } = req.body;
+
+  const comment = await Comment.findById(commentId);
   if (!comment) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
-  console.log(comment);
-  if (String(comment.owner._id) !== String(_id)) {
+  if (String(comment.owner._id) !== String(user._id)) {
     req.flash("error", "You are not the owner of video.");
     return res.status(403).redirect("/");
   }
-  await Comment.findByIdAndDelete(id);
-  const commentsOwner = await User.findById(_id);
-  commentsOwner.comments.pop(id);
+  await Comment.findByIdAndDelete(commentId);
+  const commentsOwner = await User.findById(user._id);
+  commentsOwner.comments.remove({ _id: commentId });
   commentsOwner.save();
   req.session.user = commentsOwner;
+  console.log(`유저 코멘트 : ${commentsOwner}`);
   const video = await Video.findById(comment.video);
-  video.comments.pop(id);
+  video.comments.remove({ _id: commentId });
   video.save();
-
+  console.log(`비디오 코멘트 : ${commentsOwner}`);
   return res.sendStatus(201);
 };
